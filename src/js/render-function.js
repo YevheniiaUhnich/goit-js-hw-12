@@ -1,10 +1,12 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-export function imagesTemplate(arrPict, tagGallery) {
+export async function  imagesTemplate(arrPict, tagGallery) {
     const gallery = document.querySelector(tagGallery);
     gallery.innerHTML = '';
   
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     const markup = arrPict.map((image) =>
       `<li class="gallery-item">
         <a class='gallery-link' href="${image.largeImageURL}">
@@ -26,6 +28,9 @@ export function imagesTemplate(arrPict, tagGallery) {
       captionDelay: 250,
       close: true,
     });
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
     lightbox.refresh();
 
     gallery.addEventListener('click', (e) => {

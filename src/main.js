@@ -12,7 +12,7 @@ const loadingMessage = document.querySelector("#loading-message");
 
 form.addEventListener("submit", onSubmit);
 
-function onSubmit(e) {
+async function onSubmit(e) {
   e.preventDefault();
 
   const searchWord = input.value.trim();
@@ -33,26 +33,27 @@ function onSubmit(e) {
   }
 
   loadingMessage.style.display = 'block';
-  
-  searchImages(searchWord)
-    .then(response => {
+
+  try {
+    const response = await searchImages(searchWord);
         loadingMessage.style.display = 'none'; 
+
       if (response.data.hits.length === 0) {
-        iziToast.show({
-          backgroundColor: 'rgba(239, 64, 64, 1)',
-          messageColor: `rgba(255, 255, 255, 1)`,
-          close: `true`,
-          position: "topRight",
-          title: 'Error',
-          titleColor: '#fff',
-          titleSize: '16px',
-          message: ''
-        });
+        throw new Error("No images found");
+        //  iziToast.show({
+        //   backgroundColor: 'rgba(239, 64, 64, 1)',
+        //   messageColor: `rgba(255, 255, 255, 1)`,
+        //   close: `true`,
+        //   position: "topRight",
+        //   title: 'Error',
+        //   titleColor: '#fff',
+        //   titleSize: '16px',
+        //   message: ''
+        // });
       } else {
         imagesTemplate(response.data.hits, '.gallery');
       }
-    })
-    .catch(error => {
+  } catch(error) {
         loadingMessage.style.display = 'none';
       iziToast.show({
         backgroundColor: 'rgba(239, 64, 64, 1)',
@@ -65,7 +66,7 @@ function onSubmit(e) {
         message: 'Sorry, there are no images matching your search query. Please try again'
       });
       console.log(error);
-    });
+    }
 
   form.reset();
 }

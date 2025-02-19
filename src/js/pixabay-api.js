@@ -3,7 +3,7 @@ import axios from 'axios';
 // const baseUrl = "https://pixabay.com/api";
 // const endPoint = "/api";
 
-export default function searchImages(searchWord) {
+export default async function searchImages(searchWord) {
   const options = {
     params: {
       key: '48866244-bc210103fc5496976cb537971',
