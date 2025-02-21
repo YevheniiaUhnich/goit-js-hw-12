@@ -157,12 +157,12 @@ button:hover {
 }
 
 .btn-load-more {
-  display: flex;
-  align-items: center;
+  display: block;
+  /* align-items: center;  */
   width: 160px;
   background-color: #4E75FF;
-  margin-left: 646px;
-  margin-top: 20px;
+  /* margin-left: 646px; */
+  margin: 20px auto;
   border: 2 px solid #4E75FF;
 }
 
