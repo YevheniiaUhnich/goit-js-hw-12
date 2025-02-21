@@ -160,5 +160,12 @@ button:hover {
   display: flex;
   align-items: center;
   width: 120px;
+  background-color: #808080;
+  margin-left: 740px;
+  border: 2 px solid #808080;
+}
 
+.btn-load-more:hover {
+  background-color: #808080;
+  border: 2 px solid #808080;
 }
