@@ -69,7 +69,6 @@ async function fetchImages() {
     console.log(`Total images available: ${totalHits}`);
     console.log(`Images received: ${response.data.hits.length}`);
 
-    // Додаємо нові фото, а не замінюємо старі
     imagesTemplate(response.data.hits, '.gallery', true);
 
     page += 1;
