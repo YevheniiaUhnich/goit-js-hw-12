@@ -159,13 +159,14 @@ button:hover {
 .btn-load-more {
   display: flex;
   align-items: center;
-  width: 120px;
-  background-color: #808080;
-  margin-left: 740px;
-  border: 2 px solid #808080;
+  width: 320px;
+  background-color: #4E75FF;
+  margin-left: 640px;
+  margin-top: 20px;
+  border: 2 px solid #4E75FF;
 }
 
 .btn-load-more:hover {
-  background-color: #808080;
-  border: 2 px solid #808080;
+  background-color: #4E75FF;
+  border: 2 px solid #4E75FF;
 }
