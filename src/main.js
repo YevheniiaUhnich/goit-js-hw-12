@@ -71,8 +71,9 @@ form.addEventListener("submit", async function (e) {
 
     page += 1;
 
-        if ((page - 1) * per_page >= totalHits) {
+        if (page * per_page >= totalHits) {
             loadMoreBtn.style.display = 'none';
+            if (page > 1) { 
             iziToast.show({
                 backgroundColor: 'rgba(239, 64, 64, 1)',
                 messageColor: 'rgba(255, 255, 255, 1)',
@@ -83,11 +84,13 @@ form.addEventListener("submit", async function (e) {
                 titleSize: '16px',
                 message: "We're sorry, but you've reached the end of search results.",
               });
+            }
             } else {
               loadMoreBtn.style.display = 'block';
             }
 
             smoothScroll();
+            
         } catch (error) {
           loadingMessage.style.display = 'none';
           console.error(error);
@@ -109,7 +112,7 @@ loadMoreBtn.addEventListener('click', async function () {
   });
   
   function smoothScroll() {
-    const galleryItem = document.querySelector('.gallery-item');
+    const galleryItem = document.querySelector('.gallery img');
     if (galleryItem) {
       const cardHeight = galleryItem.getBoundingClientRect().height;
       window.scrollBy({
