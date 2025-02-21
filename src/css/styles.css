@@ -169,4 +169,6 @@ button:hover {
 .btn-load-more:hover {
   background-color: #4E75FF;
   border: 2 px solid #4E75FF;
+  width: 520px;
+  margin-left: 540px;
 }
