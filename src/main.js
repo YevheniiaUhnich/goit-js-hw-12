@@ -39,45 +39,64 @@ form.addEventListener("submit", async function (e) {
   gallery.innerHTML = ''; 
   page = 1; 
   loadMoreBtn.style.display = 'none'; 
-  endOfResultsMessage.style.display = 'none';
 
-  await fetchImages();
+  const response = await searchImages(searchWord, page, per_page);
+    loadingMessage.style.display = 'none';
+    try {
+  if (response.data.hits.length === 0) {
+    iziToast.show({
+      backgroundColor: 'rgba(239, 64, 64, 1)',
+      messageColor: 'rgba(255, 255, 255, 1)',
+      close: true,
+      position: "topRight",
+      title: 'Error',
+      titleColor: '#fff',
+      titleSize: '16px',
+      message: 'Sorry, there are no images matching your search query. Please try again'
+    });
+    return;
+  }
+  imagesTemplate(response.data.hits);
+  totalHits = response.data.totalHits;
+  input.value='';
+
+  if (totalHits>per_page){
+   loadMoreBtn.style.display = 'block'
+}
+}catch (error) {
+    loadingMessage.style.display = 'none';
+    console.error(error);
+    iziToast.show({
+      backgroundColor: 'rgba(239, 64, 64, 1)',
+      messageColor: 'rgba(255, 255, 255, 1)',
+      close: true,
+      position: 'topRight',
+      title: 'Error',
+      titleColor: '#fff',
+      titleSize: '16px',
+      message: 'Sorry, there was an error fetching images. Please try again.',
+    });
+  }
 });
 
-async function fetchImages() {
+async function loadMore() {
   loadingMessage.style.display = 'block';
+  page += 1;
 
   try {
     const response = await searchImages(searchWord, page, per_page);
-    loadingMessage.style.display = 'none';
-
-    if (response.data.hits.length === 0) {
-      iziToast.show({
-        backgroundColor: 'rgba(239, 64, 64, 1)',
-        messageColor: 'rgba(255, 255, 255, 1)',
-        close: true,
-        position: "topRight",
-        title: 'Error',
-        titleColor: '#fff',
-        titleSize: '16px',
-        message: 'Sorry, there are no images matching your search query. Please try again'
-      });
-      return;
-    }
-
     totalHits = response.data.totalHits;
     console.log(`Total images available: ${totalHits}`);
     console.log(`Images received: ${response.data.hits.length}`);
 
-    imagesTemplate(response.data.hits, '.gallery', true);
-
-    page += 1;
+    imagesTemplate(response.data.hits);
 
     if ((page - 1) * per_page >= totalHits) {
       loadMoreBtn.style.display = 'none';
-      endOfResultsMessage.style.display = 'block';
-    } else {
-      loadMoreBtn.style.display = 'block';
+      iziToast.info({
+position: 'topRight',
+message: 'We\'re sorry, but you\'ve reached the end of search results',
+      })
     }
 
     smoothScroll();
@@ -97,9 +116,7 @@ async function fetchImages() {
   }
 }
 
-loadMoreBtn.addEventListener('click', async function () {
-  await fetchImages();
-});
+loadMoreBtn.addEventListener('click', loadMore);
   
 function smoothScroll() {
   const galleryItem = document.querySelector('.gallery img');

@@ -1,11 +1,13 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-export async function  imagesTemplate(arrPict, tagGallery) {
-    const gallery = document.querySelector(tagGallery);
-    gallery.innerHTML = '';
-  
-    await new Promise(resolve => setTimeout(resolve, 0));
+const lightbox = new SimpleLightbox('.gallery' + " a", {
+    captionsData: 'alt',
+    captionDelay: 250,
+  });
+  const gallery = document.querySelector('.gallery');
+
+export async function  imagesTemplate(arrPict) {
 
     const markup = arrPict.map((image) =>
       `<li class="gallery-item">
@@ -22,22 +24,8 @@ export async function  imagesTemplate(arrPict, tagGallery) {
     ).join("");
   
     gallery.insertAdjacentHTML("afterbegin", markup);
-  
-    const lightbox = new SimpleLightbox(tagGallery + " a", {
-      captionsData: 'alt',
-      captionDelay: 250,
-      close: true,
-    });
-
-    await new Promise(resolve => setTimeout(resolve, 0));
 
     lightbox.refresh();
-
-    gallery.addEventListener('click', (e) => {
-        if (e.target.tagName === 'IMG') {
-          lightbox.close(); 
-        }
-      });
   }
   
 
