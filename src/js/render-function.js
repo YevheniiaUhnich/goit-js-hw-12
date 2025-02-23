@@ -23,7 +23,7 @@ export async function  imagesTemplate(arrPict) {
       </li>`
     ).join("");
   
-    gallery.insertAdjacentHTML("afterbegin", markup);
+    gallery.insertAdjacentHTML("beforeend", markup);
 
     lightbox.refresh();
   }
