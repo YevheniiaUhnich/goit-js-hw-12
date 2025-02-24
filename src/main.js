@@ -98,6 +98,8 @@ async function loadMore() {
     if (page >= lastPage) {
     //   loadMoreBtn.classList.add('is-hidden');
       loadMoreBtn.style.display = 'none';
+      loadingMessage.style.display = 'none';
+
       iziToast.info({
     position: 'topRight',
     message: "We're sorry, but you've reached the end of search results",
