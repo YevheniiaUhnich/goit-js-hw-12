@@ -99,25 +99,25 @@ async function loadMore() {
       loadMoreBtnEl.classList.add('is-hidden');
 
       iziToast.info({
-position: 'topRight',
-message: "We're sorry, but you've reached the end of search results",
+    position: 'topRight',
+    message: "We're sorry, but you've reached the end of search results",
       })
     }
 
     smoothScroll();
   } catch (error) {
     loadingMessage.style.display = 'none';
-    console.error(error);
-    iziToast.show({
-      backgroundColor: 'rgba(239, 64, 64, 1)',
-      messageColor: 'rgba(255, 255, 255, 1)',
-      close: true,
-      position: 'topRight',
-      title: 'Error',
-      titleColor: '#fff',
-      titleSize: '16px',
-      message: 'Sorry, there was an error fetching images. Please try again.',
-    });
+    // // console.error(error);
+    // iziToast.show({
+    //   backgroundColor: 'rgba(239, 64, 64, 1)',
+    //   messageColor: 'rgba(255, 255, 255, 1)',
+    //   close: true,
+    //   position: 'topRight',
+    //   title: 'Error',
+    //   titleColor: '#fff',
+    //   titleSize: '16px',
+    // //   message: 'Sorry, there was an error fetching images. Please try again.',
+    // });
   }
 }
 
