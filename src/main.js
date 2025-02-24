@@ -91,17 +91,17 @@ async function loadMore() {
 
     imagesTemplate(response.data.hits);
    
-    loadMoreBtnEl.classList.remove('is-hidden');
+    loadMoreBtn.classList.remove('is-hidden');
 
-    const lastPage = Math.ceil(totalHits / pixabayApi.perPage);
+    const lastPage = Math.ceil(totalHits / per_page);
 
-    if (lastPage === pixabayApi.page) {
-      loadMoreBtnEl.classList.add('is-hidden');
-
+    if (page >= lastPage) {
+    //   loadMoreBtn.classList.add('is-hidden');
+      loadMoreBtn.style.display = 'none';
       iziToast.info({
     position: 'topRight',
     message: "We're sorry, but you've reached the end of search results",
-      })
+      });
     }
 
     smoothScroll();
