@@ -90,12 +90,17 @@ async function loadMore() {
     console.log(`Images received: ${response.data.hits.length}`);
 
     imagesTemplate(response.data.hits);
+   
+    loadMoreBtnEl.classList.remove('is-hidden');
 
-    if ((page - 1) * per_page >= totalHits) {
-      loadMoreBtn.style.display = 'none';
+    const lastPage = Math.ceil(totalHits / pixabayApi.perPage);
+
+    if (lastPage === pixabayApi.page) {
+      loadMoreBtnEl.classList.add('is-hidden');
+
       iziToast.info({
 position: 'topRight',
-message: 'We\'re sorry, but you\'ve reached the end of search results',
+message: "We're sorry, but you've reached the end of search results",
       })
     }
 
